@@ -1,11 +1,14 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { Ionicons, Feather, MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
 
 import CustomButton from '../components/CustomButton';
+import { addToCart } from '../store/actions';
 
 export default function Details({ route, navigation }) {
     const { item } = route.params;
+    const dispatch = useDispatch();
 
     return (
         <View>
@@ -18,7 +21,10 @@ export default function Details({ route, navigation }) {
             {/* Back Icon */}
 
             <View style={styles.icon}>
-                <TouchableOpacity style={styles.iconBody}>
+                <TouchableOpacity
+                    style={styles.iconBody}
+                    onPress={() => navigation.navigate('Shop')}
+                >
                     <Ionicons
                         name="md-chevron-back"
                         size={15}
@@ -83,7 +89,12 @@ export default function Details({ route, navigation }) {
                     <Text style={{ fontFamily: 'Nunito-Regular', color: 'gray' }}>Tax rates apply (14%)</Text>
                 </View>
 
-                <CustomButton title='add to cart' pressed={() => navigation.navigate('Checkout')} />
+                <CustomButton title='add to cart' pressed={() => {
+                    dispatch(addToCart(item))
+                    navigation.navigate('Checkout')
+                }
+                }
+                />
             </View>
         </View >
     )
@@ -112,7 +123,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginLeft: mainWidth / 20
     },
-
     bottom: {
         marginHorizontal: mainWidth / 20
     },
