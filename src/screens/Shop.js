@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Text, Dimensions, TouchableOpacity, FlatList } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 
 import ListHeader from '../components/ListHeader';
+import Products from '../components/Products';
+import Categories from '../components/Categories';
 
-export default function Shop() {
+export default function Shop({ navigation }) {
 
     const products = useSelector(state => state.products.products);
     const selectedProducts = products.filter(p => p.category === 'Technology');
@@ -38,11 +40,17 @@ export default function Shop() {
 
                 <View style={styles.body}>
                     <FlatList
-                        ListHeaderComponent={<ListHeader />}
+                        numColumns={2}
+                        ListHeaderComponent={<ListHeader navigation={navigation} />}
                         data={selectedProducts}
                         renderItem={({ item }) => (
-                            <Text>{item.title}</Text>
+                            <Products
+                                item={item}
+                                navigation={navigation}
+                            />
                         )}
+                        ListFooterComponent={<View
+                            style={{ paddingBottom: 200 }} />}
                     />
                 </View>
             </View>
