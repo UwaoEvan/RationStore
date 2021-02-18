@@ -1,21 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
+import reducers from './src/store/reducers';
+import MainNavigation from './src/navigation/MainNavigation';
+
+const getFonts = () => Font.loadAsync({
+  'Nunito-Regular': require('./assets/fonts/Nunito-Regular.ttf'),
+  'Nunito-Bold': require('./assets/fonts/Nunito-Bold.ttf')
+});
+
+const store = createStore(reducers);
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  if (fontLoaded) {
+    return (
+      <Provider store={store}>
+        <MainNavigation />
+      </Provider>
+    )
+  } else {
+    return (
+      <AppLoading
+        startAsync={getFonts}
+        onFinish={() => setFontLoaded(true)}
+        onError={err => console.log(err)}
+      />
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
