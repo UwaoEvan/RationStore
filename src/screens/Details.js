@@ -2,7 +2,9 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { Ionicons, Feather, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 
-export default function Details({ route }) {
+import CustomButton from '../components/CustomButton';
+
+export default function Details({ route, navigation }) {
     const { item } = route.params;
 
     return (
@@ -36,12 +38,21 @@ export default function Details({ route }) {
                     />
                     <Text style={{ color: '#003fff', paddingHorizontal: 5 }}>Shopping</Text>
                 </View>
-                <Text style={styles.title}>{item.title}</Text>
+                <View style={{ justifyContent: 'center', paddingVertical: 5 }}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <TouchableOpacity style={{ ...styles.titleIcon, position: 'absolute', left: '85%' }}>
+                        <Feather
+                            name="link-2"
+                            size={20}
+                            color="#003fff"
+                        />
+                    </TouchableOpacity>
+                </View>
                 <Text style={styles.description}>{item.description}</Text>
 
                 {/* Location */}
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: '2%' }}>
                     <View style={styles.bottomIcon}>
                         <TouchableOpacity >
                             <FontAwesome
@@ -64,13 +75,15 @@ export default function Details({ route }) {
                     </TouchableOpacity>
                 </View>
 
-                <View style={{ borderWidth: 0.5, borderColor: '#ccc', marginVertical: 10 }} />
+                <View style={{ borderWidth: 0.5, borderColor: '#ccc', marginVertical: '3%' }} />
 
                 {/* price */}
                 <View>
                     <Text style={styles.title}>Ksh {item.price.toFixed(2)}</Text>
                     <Text style={{ fontFamily: 'Nunito-Regular', color: 'gray' }}>Tax rates apply (14%)</Text>
                 </View>
+
+                <CustomButton title='add to cart' pressed={() => navigation.navigate('Checkout')} />
             </View>
         </View >
     )
@@ -124,5 +137,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito-Regular',
         color: 'gray',
         paddingHorizontal: 10
+    },
+    titleIcon: {
+        width: 40,
+        height: 40,
+        backgroundColor: '#ebf0ff',
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 })

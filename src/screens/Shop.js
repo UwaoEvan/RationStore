@@ -40,6 +40,7 @@ export default function Shop({ navigation }) {
 
                 <View style={styles.body}>
                     <FlatList
+                        showsVerticalScrollIndicator={false}
                         numColumns={2}
                         ListHeaderComponent={<ListHeader navigation={navigation} />}
                         data={selectedProducts}

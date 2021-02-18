@@ -26,7 +26,7 @@ const mainHeight = height;
 const styles = StyleSheet.create({
     container: {
         width: mainWidth / 2.5,
-        height: mainHeight / 4,
+        height: mainHeight / 3,
         shadowColor: '#333',
         shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 0.2,
