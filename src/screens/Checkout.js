@@ -8,17 +8,13 @@ import AddCart from '../components/AddCart';
 export default function Checkout({ navigation }) {
     const items = useSelector(state => state.cart.items)
 
-    const deleteItem = id => {
-        items.filter(i => i.id !== id)
-    }
-
     return (
         <View style={styles.container}>
             <View style={styles.icon}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity
                         style={styles.iconBody}
-                        onPress={() => navigation.navigate('Details')}
+                        onPress={() => navigation.goback()}
                     >
                         <Ionicons
                             name="md-chevron-back"

@@ -26,9 +26,11 @@ export default function Shop({ navigation }) {
                                 color="gray"
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.iconBody}>
+                        <TouchableOpacity style={styles.iconBody}
+                            onPress={() => navigation.navigate('Checkout')}
+                        >
                             <Ionicons
-                                name="search"
+                                name="md-cart-outline"
                                 size={15}
                                 color="gray"
                             />
