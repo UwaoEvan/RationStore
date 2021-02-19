@@ -3,24 +3,15 @@ import { View, StyleSheet, Text, Image, TouchableOpacity, Dimensions, FlatList }
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 
+import AddCart from '../components/AddCart';
+
 export default function Checkout({ navigation }) {
-    // const items = useSelector(state => {
-    //     const productsArr = [];
-    //     for (const key in state.cart.items) {
-    //         productsArr.push({
-    //             id: key,
-    //             title: state.cart.items[key].title,
-    //             price: state.cart.items[key].price,
-    //             total: state.cart.items[key].price,
-    //             qty: state.cart.items[key].qty
-    //         });
-    //     }
-    // });
-
     const items = useSelector(state => state.cart.items)
-    console.log(items)
 
-    console.log(items)
+    const deleteItem = id => {
+        items.filter(i => i.id !== id)
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.icon}>
@@ -40,17 +31,13 @@ export default function Checkout({ navigation }) {
             </View>
             <View>
                 <Text style={styles.cartTitle}>My Cart</Text>
-                <View style={{ flexDirection: 'row' }}>
-                    <Image
+                <FlatList
+                    data={items}
+                    renderItem={({ item }) => (
+                        <AddCart item={item} />
+                    )}
+                />
 
-                        resizeMode='contain'
-                        style={styles.image}
-                    />
-                    <View style={{ marginHorizontal: 20 }}>
-                        <Text style={{ fontFamily: 'Nunito-Bold', fontSize: 18 }}>tt</Text>
-                        <Text style={{ fontFamily: 'Nunito-Regular', fontSize: 12, color: 'gray', marginVertical: 10 }}>Ksh </Text>
-                    </View>
-                </View>
             </View>
         </View>
     )
@@ -62,7 +49,8 @@ const mainHeight = height;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginLeft: mainWidth / 20
+        marginLeft: mainWidth / 20,
+        marginRight: mainWidth / 20
     },
     icon: {
         position: 'absolute',
@@ -87,6 +75,6 @@ const styles = StyleSheet.create({
     },
     image: {
         width: mainWidth / 2.5,
-        height: mainHeight / 4
+        height: mainHeight / 4,
     }
 })
