@@ -1,13 +1,12 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity, Dimensions, FlatList } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, Dimensions, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 
 import AddCart from '../components/AddCart';
 
 export default function Checkout({ navigation }) {
-    const items = useSelector(state => state.cart.items)
-
+    let items = useSelector(state => state.cart.items);
     return (
         <View style={styles.container}>
             <View style={styles.icon}>
@@ -27,13 +26,15 @@ export default function Checkout({ navigation }) {
             </View>
             <View>
                 <Text style={styles.cartTitle}>My Cart</Text>
+
                 <FlatList
                     data={items}
                     renderItem={({ item }) => (
-                        <AddCart item={item} />
+                        <AddCart
+                            item={item}
+                        />
                     )}
                 />
-
             </View>
         </View>
     )
