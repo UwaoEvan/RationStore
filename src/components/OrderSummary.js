@@ -10,7 +10,7 @@ export default function OrderSummary() {
 
     const getTotalCost = () => {
         let total = items.reduce((a, c) => a + (c.total || 0), 0);
-        return total;
+        return total.toFixed(2);
     }
 
     const getCartItems = () => {
