@@ -10,7 +10,7 @@ export default function Products({ item, navigation }) {
             <Image
                 source={item.image}
                 style={styles.image}
-                resizeMode='cover'
+                resizeMode='contain'
             />
             <View style={{ paddingVertical: 10 }}>
                 <Text style={styles.productTitle}>{item.title}</Text>

@@ -1,19 +1,46 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Dimensions, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import AddCart from '../components/AddCart';
+import { addToCart, removeFromCart, deleteItem } from '../store/actions';
+import OrderSummary from '../components/OrderSummary';
 
-export default function Checkout({ navigation }) {
+export default function CheckoutScreen({ navigation }) {
     let items = useSelector(state => state.cart.items);
+
+    const dispatch = useDispatch();
+
+    const header = () => {
+        return (
+            <Text style={styles.cartTitle}>My Cart</Text>
+        )
+    }
     return (
         <View style={styles.container}>
+            <View style={{ flex: 1 }}>
+                <FlatList
+                    ListHeaderComponent={header()}
+                    data={items}
+                    renderItem={({ item }) => (
+                        <AddCart
+                            item={item}
+                            onAdd={() => dispatch(addToCart(item))}
+                            onRemove={() => dispatch(removeFromCart(item))}
+                            onDelete={() => dispatch(deleteItem(item.id))}
+                            items={items}
+                        />
+                    )}
+                    ListFooterComponent={<OrderSummary />}
+                    showsVerticalScrollIndicator={false}
+                />
+            </View>
             <View style={styles.icon}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity
                         style={styles.iconBody}
-                        onPress={() => navigation.goback()}
+                        onPress={() => navigation.navigate('Shop')}
                     >
                         <Ionicons
                             name="md-chevron-back"
@@ -21,21 +48,11 @@ export default function Checkout({ navigation }) {
                             color="gray"
                         />
                     </TouchableOpacity>
+
                     <Text style={styles.headerTitle}>Order Details</Text>
                 </View>
             </View>
-            <View>
-                <Text style={styles.cartTitle}>My Cart</Text>
 
-                <FlatList
-                    data={items}
-                    renderItem={({ item }) => (
-                        <AddCart
-                            item={item}
-                        />
-                    )}
-                />
-            </View>
         </View>
     )
 }

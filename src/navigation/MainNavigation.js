@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Shop from '../screens/Shop';
 import Details from '../screens/Details';
-import Checkout from '../screens/Checkout';
+import CheckoutScreen from '../screens/CheckoutScreen';
 
 const Stack = createStackNavigator();
 export default function MainNavigation() {
@@ -13,7 +13,7 @@ export default function MainNavigation() {
             <Stack.Navigator headerMode='none'>
                 <Stack.Screen name='Shop' component={Shop} />
                 <Stack.Screen name='Details' component={Details} />
-                <Stack.Screen name='Checkout' component={Checkout} />
+                <Stack.Screen name='Checkout' component={CheckoutScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
